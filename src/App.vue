@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <div class="container">
+  <div class="grid mx-auto max-w-[400px] gap-[24px] ">
     <Balance :total="+total" />
     <IncomeExpenses :income="+income" :expenses="+expenses" />
     <TransactionList :transactions="transactions" @transactionDeleted="handleTransactionDeleted" />
@@ -61,24 +61,17 @@ const handleTransactionSubmit = (transactionData) => {
     amount: transactionData.amount,
   })
   saveTransactionsToLocalStorage()
-  toast.success('Transaction Added')
+  toast.success(`${transactionData.text} Transaction Added`)
 }
 const generateUID = () => {
   return Math.floor(Math.random() * 1000000)
 }
-// const handleTransactionDeleted = (id) => {
-//   transactions.value = transactions.value.filter((transaction) => {
-//     return transaction.id !== id
-//   })
-//   saveTransactionsToLocalStorage()
-//   toast.success("Transaction Deleted")
-// }
 const handleTransactionDeleted = (id) => {
   transactions.value = transactions.value.filter((transaction) => {
     return transaction.id !== id;
   });
   saveTransactionsToLocalStorage();
-  toast.success("Transaction Deleted");
+  toast.success(`${id} Transaction Added`);
 };
 
 const saveTransactionsToLocalStorage = ()=>{
@@ -86,3 +79,6 @@ const saveTransactionsToLocalStorage = ()=>{
 }
 
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+</style>

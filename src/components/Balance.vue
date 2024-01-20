@@ -1,6 +1,8 @@
 <template>
-    <h4>Your Balance</h4>
-    <h1 id="balance">${{ total }}</h1>
+  <div class="grid p-[24px] bg-blue-50 rounded-[12px] justify-center">
+    <div class="text-sm justify-self-start">Your Balance</div>
+    <h1 class="text-4xl font-bold">$ {{ total }}</h1>
+  </div>
   </template>
   
   <script setup>

@@ -9,10 +9,24 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faUserSecret, faArrowTrendDown } from '@fortawesome/free-solid-svg-icons'
+import {
+	faUserSecret,
+	faArrowTrendDown,
+	faArrowTrendUp,
+	faArrowUp,
+	faArrowDown,
+	faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
-library.add(faUserSecret, faArrowTrendDown)
+library.add(
+	faUserSecret,
+	faArrowTrendDown,
+	faArrowTrendUp,
+	faArrowDown,
+	faArrowUp,
+	faCircleXmark,
+);
 
 
 import App from './App.vue'
