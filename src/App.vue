@@ -71,7 +71,7 @@ const handleTransactionDeleted = (id) => {
     return transaction.id !== id;
   });
   saveTransactionsToLocalStorage();
-  toast.success(`${id} Transaction Added`);
+  toast.success(`${id} Transaction Deleted`);
 };
 
 const saveTransactionsToLocalStorage = ()=>{
