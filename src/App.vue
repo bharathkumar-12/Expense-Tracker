@@ -15,7 +15,8 @@ import AddTransaction from "./components/AddTransaction.vue";
 import IncomeExpenses from "./components/IncomeExpenses.vue";
 import TransactionList from "./components/TransactionList.vue";
 import { ref, computed, onMounted } from 'vue';
-import {useToast} from 'vue-toastification'
+import {useToast} from 'vue-toastification';
+
 const toast = useToast();
 const transactions = ref([])
 // get total
