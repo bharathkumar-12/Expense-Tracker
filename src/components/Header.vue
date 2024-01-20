@@ -1,11 +1,9 @@
 <template>
-  <div>Header Component</div>
+  <h1 class="underline decoration-sky-500">Expense Tracker</h1>
 </template>
 
-<script>
-export default {
+<script setup>
 
-}
 </script>
 
 <style>
