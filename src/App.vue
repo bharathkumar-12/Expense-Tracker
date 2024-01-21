@@ -55,10 +55,12 @@ const expenses = computed(() => {
     .toFixed(2)
 })
 const handleTransactionSubmit = (transactionData) => {
+  const timestamp = new Date();
   transactions.value.push({
     id: generateUID(),
     text: transactionData.text,
     amount: transactionData.amount,
+    timestamp: timestamp.toISOString(),
   })
   saveTransactionsToLocalStorage()
   toast.success(`${transactionData.text} Transaction Added`)
