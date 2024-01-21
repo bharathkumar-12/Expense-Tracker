@@ -1,6 +1,7 @@
 # expense-tracker
 
-![Expense-Tracker](https://github.com/bharathkumar-12/Expense-Tracker/assets/42098025/673faa67-d657-46ec-b10b-7ad79b1a0679)
+![image](https://github.com/bharathkumar-12/Expense-Tracker/assets/42098025/2831a068-b808-4064-906e-8961547af08c)
+
 
 ## Project Setup
 
