@@ -1,13 +1,14 @@
 <template>
-	<div class="text-lg">
+	<div class="grid gap-[24px]">
+		<div class="text-lg">
 		History
 		<hr class="border-black" />
 	</div>
-	<ul id="list" class="grid gap-[12px]">
+	<ul id="list" class="grid gap-[12px] max-h-[300px] overflow-scroll">
 		<li
 			v-for="transaction in transactions"
 			:key="transaction.id"
-			class="group/item grid grid-cols-12 items-center bg-white shadow-sm hover:shadow-xl transition-all border-[0.5px] py-[8px] px-[12px] rounded-[12px]"
+			class="grid grid-cols-12 items-center bg-white shadow-sm hover:shadow-xl transition-all border-[0.5px] py-[8px] px-[12px] rounded-[12px]"
 			:class="transaction.amount < 0 ? 'text-red-900' : 'text-green-900'"
 		>
 			<div class="grid grid-flow-col col-span-11 items-center">
@@ -37,13 +38,15 @@
 
 			<button
 				@click="deleteTransaction(transaction.id)"
-				class="group/edit text-red-400 bg-red-200 invisible transition-all group-hover/item:visible h-[24px] w-[24px] rounded-[24px] justify-self-center"
+				class="text-red-400 bg-red-200 transition-all h-[24px] w-[24px] rounded-[24px] justify-self-center"
 			>
 				<!-- <font-awesome-icon icon="arrow-trend-down" /> -->
 				<font-awesome-icon icon="circle-xmark" />
 			</button>
 		</li>
 	</ul>
+	</div>
+	
 </template>
 
 <script setup>
