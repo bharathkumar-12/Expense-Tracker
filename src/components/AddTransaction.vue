@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col gap-[24px]">
+	<div class="flex flex-col gap-[24px] max-h-fit bg-slate-50 rounded-[20px] p-4 border-[0.5px]">
 		<div class="text-lg">
 			Add new transaction <hr class="border-[0.5px] border-black">
 		</div>

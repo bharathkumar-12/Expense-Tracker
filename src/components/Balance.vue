@@ -1,7 +1,7 @@
 <template>
-  <div class="grid p-[24px] bg-white shadow-inner rounded-[12px] justify-center">
-    <div class="text-sm justify-self-center">Your Balance</div>
-    <h1 class="text-4xl font-bold">$ {{ total }}</h1>
+  <div class="flex flex-col gap-4 p-4 bg-white border border-1 rounded-[20px] justify-center">
+    <div class="text-sm justify-self-start">Current Balance</div>
+    <h1 class="text-4xl font-bold text-center ">$ {{ total }}</h1>
   </div>
   </template>
   

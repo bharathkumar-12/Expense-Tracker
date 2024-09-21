@@ -1,19 +1,19 @@
 <template>
-    <div class="grid gap-[24px]">
+    <div class="flex flex-col gap-[24px]  bg-slate-50 p-4 rounded-[20px]">
         <div class="text-lg">
             Recent Transactions
             <hr class="border-black" />
         </div>
-        <ul id="list" class="grid gap-[12px]">
+        <ul id="list" class="grid gap-[12px] items-start">
             <li v-for="transaction in displayedTransactions" :key="transaction.id"
                 class="grid grid-cols-12 items-center bg-white shadow-sm hover:shadow-xl transition-all border-[0.5px] py-[8px] px-[12px] rounded-[12px]"
-                :class="transaction.amount < 0 ? 'text-red-900' : 'text-green-900'">
+                :class="transaction.amount < 0 ? 'text-red-500' : 'text-green-500'">
                 <div class="grid grid-flow-col col-span-11 items-center">
                     <div class="grid">
                         <div class="text-lg text-black font-light">
                             {{ transaction.text }}
                         </div>
-                        <div class="text-[9px] text-black">
+                        <div class="text-[9px] text-gray-500">
                             <span class="font-bold">Transaction ID: </span>{{ transaction.id }}
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                             <font-awesome-icon class="ms-[10px] opacity-70" :icon="transaction.amount < 0 ? 'arrow-trend-down' : 'arrow-trend-up'
                                 " />
                         </div>
-                        <div class="text-[9px] text-black justify-self-end">
+                        <div class="text-[9px] text-gray-500 justify-self-end">
                             {{ displayLocalTimestamp(transaction.timestamp) }}
                         </div>
                     </div>

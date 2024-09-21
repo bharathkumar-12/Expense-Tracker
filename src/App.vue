@@ -1,25 +1,34 @@
 <template>
-	<Header />
-	<div class="grid gap-[24px] md:max-w-[800px] mx-auto mt-[24px] px-[16px] 3xs:grid-flow-row md:grid-flow-col">
-		<div class="grid gap-[24px]">
-			<AddTransaction @transactionSubmit="handleTransactionSubmit" />
-			<RecentTransactionList :transactions="transactions" class="" />
-		</div>
-		<div class="order-first">
-			<div class="grid mx-auto max-w-[400px] gap-[24px]">
-				<Balance :total="+total" />
-				<IncomeExpenses :income="+income" :expenses="+expenses" />
-				<TransactionList
-					:transactions="transactions"
-					@transactionDeleted="handleTransactionDeleted"
-				/>
+	<div class="">
+		<Header />
+		<div 
+			class="grid gap-6 md:max-w-[800px] mx-auto mt-[24px] px-[16px] 3xs:grid-flow-row md:grid-flow-row"
+		>
+			<div class=" ">
+				<div class="grid mx-auto md:grid-flow-col md:grid-cols-2 gap-6">
+					<div class="flex flex-col gap-4 bg-slate-50 rounded-[20px] shadow border-[0.5px] p-4">
+						<Balance :total="+total" />
+						<IncomeExpenses :income="+income" :expenses="+expenses" />
+					</div>
+					<TransactionList
+						:transactions="transactions"
+						@transactionDeleted="handleTransactionDeleted"
+					/>
+				</div>
 			</div>
+			<div class="grid md:grid-flow-col md:grid-cols-2 gap-6 ">
+				<AddTransaction @transactionSubmit="handleTransactionSubmit" />
+				<RecentTransactionList :transactions="transactions" />
+			</div>
+			
 		</div>
+		<Footer />
 	</div>
 </template>
 
 <script setup>
 import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 import Balance from "./components/Balance.vue";
 import AddTransaction from "./components/AddTransaction.vue";
 import IncomeExpenses from "./components/IncomeExpenses.vue";
@@ -216,4 +225,11 @@ const saveTransactionsToLocalStorage = () => {
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+.background-image {
+  background-image: url('/background-2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Example: Full height of the viewport */
+}
 </style>

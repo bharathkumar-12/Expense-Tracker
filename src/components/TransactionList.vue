@@ -1,22 +1,22 @@
 <template>
-	<div class="grid gap-[24px]">
+	<div class="grid gap-[24px] bg-slate-50 p-4 rounded-[20px]">
 		<div class="text-lg">
 		History
 		<hr class="border-black" />
 	</div>
-	<ul id="list" class="grid gap-[12px] max-h-[300px] overflow-scroll">
+	<ul id="list" class="grid gap-[12px] max-h-[200px] overflow-scroll">
 		<li
 			v-for="transaction in transactions"
 			:key="transaction.id"
-			class="grid grid-cols-12 items-center bg-white shadow-sm hover:shadow-xl transition-all border-[0.5px] py-[8px] px-[12px] rounded-[12px]"
-			:class="transaction.amount < 0 ? 'text-red-900' : 'text-green-900'"
+			class="grid group grid-cols-12 gap-4 items-center  shadow-sm hover:shadow-xl transition-all border-[0.5px] py-[8px] px-[12px] rounded-[12px]"
+			:class="transaction.amount < 0 ? 'text-red-500 bg-red-50' : 'text-green-500 bg-green-50'"
 		>
-			<div class="grid grid-flow-col col-span-11 items-center">
+			<div class="flex flex-row gap-4 col-span-11 justify-between">
 				<div class="grid">
 					<div class="text-lg text-black font-light">
 						{{ transaction.text }}
 					</div>
-					<div class="text-[9px] text-black">
+					<div class="text-[9px] text-gray-500">
 						<span class="font-bold">Transaction ID: </span>{{ transaction.id }}
 					</div>
 				</div>
@@ -30,7 +30,7 @@
 							"
 						/>
 					</div>
-					<div class="text-[9px] text-black justify-self-end">
+					<div class="text-[9px] text-gray-500 justify-self-end">
 						{{ displayLocalTimestamp(transaction.timestamp) }}
 					</div>
 				</div>
@@ -38,10 +38,10 @@
 
 			<button
 				@click="deleteTransaction(transaction.id)"
-				class="text-red-400 bg-red-200 transition-all h-[24px] w-[24px] rounded-[24px] justify-self-center"
+				class="text-red-500 invisible group-hover:visible delay-200 ease-in-out transition-all transform-cpu bg-transparent h-[24px] w-[24px] rounded-[24px] justify-self-center"
 			>
 				<!-- <font-awesome-icon icon="arrow-trend-down" /> -->
-				<font-awesome-icon icon="circle-xmark" />
+				<font-awesome-icon icon="circle-xmark" class="bg-transparent" />
 			</button>
 		</li>
 	</ul>
