@@ -1,29 +1,24 @@
 <template>
-	<div class="">
-		<Header />
-		<div 
-			class="grid gap-6 md:max-w-[800px] mx-auto mt-[24px] px-[16px] 3xs:grid-flow-row md:grid-flow-row"
-		>
-			<div class=" ">
-				<div class="grid mx-auto md:grid-flow-col md:grid-cols-2 gap-6">
-					<div class="flex flex-col gap-4 bg-slate-50 rounded-[20px] shadow border-[0.5px] p-4">
-						<Balance :total="+total" />
-						<IncomeExpenses :income="+income" :expenses="+expenses" />
-					</div>
-					<TransactionList
-						:transactions="transactions"
-						@transactionDeleted="handleTransactionDeleted"
-					/>
-				</div>
-			</div>
-			<div class="grid md:grid-flow-col md:grid-cols-2 gap-6 ">
-				<AddTransaction @transactionSubmit="handleTransactionSubmit" />
-				<RecentTransactionList :transactions="transactions" />
-			</div>
-			
-		</div>
-		<Footer />
-	</div>
+	<div class="flex flex-col min-h-screen max-w-[1440px] mx-auto">
+    <Header />
+    <div class="grid gap-6 p-4 lg:px-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-4 bg-blue-50 rounded-xl py-4 px-8">
+                <Balance :total="+total" />
+                <IncomeExpenses :income="+income" :expenses="+expenses" />
+            </div>
+            <TransactionList
+                :transactions="transactions"
+                @transactionDeleted="handleTransactionDeleted"
+            />
+       
+            <AddTransaction @transactionSubmit="handleTransactionSubmit" />
+            <RecentTransactionList :transactions="transactions" />
+        </div>
+    </div>
+    <Footer class="mt-auto" />
+</div>
+
 </template>
 
 <script setup>
@@ -36,129 +31,40 @@ import TransactionList from "./components/TransactionList.vue";
 import RecentTransactionList from "./components/RecentTransactionList.vue";
 import { ref, computed, onMounted } from "vue";
 import { useToast } from "vue-toastification";
+import { provide } from 'vue';
 
 const toast = useToast();
 const transactions = ref([
-	{
-		id: 680174,
-		text: "Salary",
-		amount: 1200,
-		timestamp: "2024-01-21T07:37:55.307Z",
-	},
-	{
-		id: 163475,
-		text: "Books",
-		amount: -130,
-		timestamp: "2024-01-21T07:38:05.160Z",
-	},
-	{
-		id: 743702,
-		text: "TV",
-		amount: -450,
-		timestamp: "2024-01-21T07:38:36.140Z",
-	},
-	{
-		id: 383308,
-		text: "TV Subscription",
-		amount: -120,
-		timestamp: "2024-01-21T07:38:52.451Z",
-	},
-	{
-		id: 561289,
-		text: "Groceries",
-		amount: -80,
-		timestamp: "2024-01-21T07:39:15.802Z",
-	},
-	{
-		id: 927510,
-		text: "Gasoline",
-		amount: -35,
-		timestamp: "2024-01-21T07:39:40.643Z",
-	},
-	{
-		id: 216497,
-		text: "Dinner",
-		amount: -70,
-		timestamp: "2024-01-21T07:40:02.917Z",
-	},
-	{
-		id: 385692,
-		text: "Utilities",
-		amount: -150,
-		timestamp: "2024-01-21T07:40:25.789Z",
-	},
-	{
-		id: 759824,
-		text: "Internet Bill",
-		amount: -80,
-		timestamp: "2024-01-21T07:40:50.210Z",
-	},
-	{
-		id: 482136,
-		text: "Coffee",
-		amount: -5,
-		timestamp: "2024-01-21T07:41:15.112Z",
-	},
-	{
-		id: 643219,
-		text: "Lunch",
-		amount: -20,
-		timestamp: "2024-01-21T07:41:38.441Z",
-	},
-	{
-		id: 124578,
-		text: "Movie Tickets",
-		amount: -40,
-		timestamp: "2024-01-21T07:42:01.523Z",
-	},
-	{
-		id: 895267,
-		text: "Fitness Class",
-		amount: -100,
-		timestamp: "2024-01-21T07:42:25.876Z",
-	},
-	{
-		id: 376590,
-		text: "Clothing",
-		amount: -200,
-		timestamp: "2024-01-21T07:42:49.209Z",
-	},
-	{
-		id: 652413,
-		text: "Phone Bill",
-		amount: -50,
-		timestamp: "2024-01-21T07:43:13.652Z",
-	},
-	{
-		id: 415726,
-		text: "Gift",
-		amount: -30,
-		timestamp: "2024-01-21T07:43:38.105Z",
-	},
-	{
-		id: 789042,
-		text: "Car Maintenance",
-		amount: -120,
-		timestamp: "2024-01-21T07:44:03.008Z",
-	},
-	{
-		id: 548391,
-		text: "Travel Expenses",
-		amount: -180,
-		timestamp: "2024-01-21T07:44:27.451Z",
-	},
-	{
-		id: 109634,
-		text: "Gym Membership",
-		amount: -70,
-		timestamp: "2024-01-21T07:44:51.804Z",
-	},
-	{
-		id: 870155,
-		text: "Rent",
-		amount: -1000,
-		timestamp: "2024-01-21T07:45:16.257Z",
-	},
+    // Income - Wave pattern with gentle rises and falls
+    { id: 680174, text: "Salary", amount: 180, timestamp: "2024-01-01T10:00:00.000Z" },
+    { id: 293874, text: "Freelance Project", amount: 190, timestamp: "2024-01-03T10:00:00.000Z" },
+    { id: 837465, text: "Part-Time Job", amount: 210, timestamp: "2024-01-05T10:00:00.000Z" },
+    { id: 123456, text: "Investment Dividends", amount: 200, timestamp: "2024-01-08T10:00:00.000Z" },
+    { id: 283764, text: "Freelance Project", amount: 220, timestamp: "2024-01-10T10:00:00.000Z" },
+    { id: 947365, text: "Side Business", amount: 210, timestamp: "2024-01-13T10:00:00.000Z" },
+    { id: 473829, text: "Freelance Project", amount: 200, timestamp: "2024-01-15T10:00:00.000Z" },
+    { id: 567829, text: "Consulting", amount: 220, timestamp: "2024-01-18T10:00:00.000Z" },
+    { id: 876342, text: "Investment Dividends", amount: 190, timestamp: "2024-01-20T10:00:00.000Z" },
+    { id: 657329, text: "Freelance Project", amount: 180, timestamp: "2024-01-23T10:00:00.000Z" },
+    { id: 473829, text: "Part-Time Job", amount: 210, timestamp: "2024-01-25T10:00:00.000Z" },
+    { id: 983742, text: "Consulting", amount: 190, timestamp: "2024-01-28T10:00:00.000Z" },
+    { id: 738942, text: "Side Business", amount: 180, timestamp: "2024-01-30T10:00:00.000Z" },
+
+    // Expenses - Wave pattern with smooth rises and falls
+    { id: 163475, text: "Rent", amount: -100, timestamp: "2024-01-02T10:00:00.000Z" },
+    { id: 743702, text: "Groceries", amount: -120, timestamp: "2024-01-04T10:00:00.000Z" },
+    { id: 382374, text: "Electricity Bill", amount: -110, timestamp: "2024-01-06T10:00:00.000Z" },
+    { id: 385692, text: "Internet Bill", amount: -100, timestamp: "2024-01-09T10:00:00.000Z" },
+    { id: 758294, text: "Dining Out", amount: -90, timestamp: "2024-01-11T18:00:00.000Z" },
+    { id: 163468, text: "Coffee", amount: -85, timestamp: "2024-01-14T09:00:00.000Z" },
+    { id: 387492, text: "Transportation", amount: -95, timestamp: "2024-01-16T07:30:00.000Z" },
+    { id: 392847, text: "Gym Membership", amount: -90, timestamp: "2024-01-19T07:00:00.000Z" },
+    { id: 847362, text: "Movie Tickets", amount: -80, timestamp: "2024-01-21T20:00:00.000Z" },
+    { id: 758934, text: "Online Shopping", amount: -100, timestamp: "2024-01-23T11:00:00.000Z" },
+    { id: 647293, text: "Phone Bill", amount: -90, timestamp: "2024-01-25T12:00:00.000Z" },
+    { id: 123789, text: "Gift", amount: -85, timestamp: "2024-01-27T08:00:00.000Z" },
+    { id: 475839, text: "Lunch", amount: -70, timestamp: "2024-01-29T13:00:00.000Z" },
+    { id: 827364, text: "Utilities", amount: -80, timestamp: "2024-01-31T07:00:00.000Z" }
 ]);
 // get total
 const total = computed(() => {
@@ -167,6 +73,18 @@ const total = computed(() => {
 			return acc + transaction.amount;
 		}, 0)
 		.toFixed(2);
+});
+
+const transformedData = computed(() => {
+  return transactions.value.map(({ amount, timestamp }) => {
+    const day = new Date(timestamp).toISOString().split('T')[0]; // Format as "YYYY-MM-DD"
+
+    // Determine income and expense based on the amount's sign
+    const income = amount > 0 ? amount : 0;
+    const expense = amount < 0 ? Math.abs(amount) : 0;
+
+    return [day, income, expense];
+  });
 });
 
 onMounted(() => {
@@ -197,17 +115,23 @@ const expenses = computed(() => {
 		}, 0)
 		.toFixed(2);
 });
-const handleTransactionSubmit = (transactionData) => {
-	const timestamp = new Date();
-	transactions.value.push({
-		id: generateUID(),
-		text: transactionData.text,
-		amount: transactionData.amount,
-		timestamp: timestamp.toISOString(),
-	});
-	saveTransactionsToLocalStorage();
-	toast.success(`${transactionData.text} Transaction Added`);
-};
+function handleTransactionSubmit({ text, amount, type_of_transaction }){
+	if(type_of_transaction === 'Expense'){
+		amount = amount * -1
+	}
+	console.log('expesne or not', amount, typeof amount)
+    transactions.value.push({
+        id: generateUID(),
+        text,
+        amount,
+        type_of_transaction,
+        timestamp: new Date().toISOString(),
+    });
+    saveTransactionsToLocalStorage();
+    toast.success(`${text} Transaction Added`);
+}
+
+
 const generateUID = () => {
 	return Math.floor(Math.random() * 1000000);
 };
@@ -222,14 +146,17 @@ const handleTransactionDeleted = (id) => {
 const saveTransactionsToLocalStorage = () => {
 	localStorage.setItem("transactions", JSON.stringify(transactions.value));
 };
+
+provide('transactions', transformedData);
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 .background-image {
-  background-image: url('/background-2.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh; /* Example: Full height of the viewport */
+	background-image: url("/background-2.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	min-height: 100vh; /* Example: Full height of the viewport */
 }
+
 </style>

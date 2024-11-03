@@ -1,6 +1,7 @@
 <template>
-    <div class="bg-white bg-opacity-50 h-full mt-6 p-8">
-        Designed and Developed by Bharath Kumar @ 2024 <br>
-        Image by <a href="https://www.freepik.com/free-vector/background-pixel-rain-abstract_6148364.htm#query=ui%20background&position=46&from_view=keyword&track=ais_hybrid&uuid=f1e5f483-3bd0-408a-8616-195bb10c1f65">Freepik</a>
-    </div>
+	<div class="p-4 lg:px-16 text-xs bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 text-white text-center">
+		Designed and Developed by Bharath Kumar <br />
+		Frontend Developer Visit <a class="underline cursor-pointer" href="https://bharathkumar.pro/">Portfolio</a> for more Info
+		
+	</div>
 </template>

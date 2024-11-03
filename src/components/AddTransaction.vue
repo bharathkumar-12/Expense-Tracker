@@ -1,7 +1,10 @@
 <template>
-	<div class="flex flex-col gap-[24px] max-h-fit bg-slate-50 rounded-[20px] p-4 border-[0.5px]">
+	<div
+		class="flex flex-col gap-[24px] bg-slate-50 px-8 py-4 rounded-xl border-[0.5px]"
+	>
 		<div class="text-lg">
-			Add new transaction <hr class="border-[0.5px] border-black">
+			Add new transaction
+			<hr class="border-[0.5px] border-black opacity-10" />
 		</div>
 		<FormKit
 			type="form"
@@ -24,13 +27,29 @@
 				type="number"
 				name="amount"
 				prefix-icon="dollar"
-				placeholder="-34"
+				placeholder="34000"
 				validation="required|number"
 				:validation-messages="{
 					required: 'Transaction amount is required',
 				}"
 			/>
-			<FormKit type="submit" prefix-icon="add" class="red" label="Add Transaction" />
+			<FormKit
+				type="select"
+				placeholder="Is it Income or Expense"
+				name="type_of_transaction"
+				validation="required"
+				:options="['Income', 'Expense']"
+				:validation-messages="{
+					required: 'Transaction Type is required',
+				}"
+			/>
+			<FormKit
+				type="submit"
+				prefix-icon="add"
+				class="red"
+				label="Add Transaction"
+				
+			/>
 		</FormKit>
 	</div>
 </template>
@@ -52,13 +71,14 @@ const onSubmit = (param) => {
 	const transactionData = {
 		text: param.text,
 		amount: parseFloat(param.amount),
+		type_of_transaction: param.type_of_transaction,
 	};
 	emit("transactionSubmit", transactionData);
 	reset("adding-transaction");
 };
 </script>
 <style>
-button{
-  background-color: aquamarine;
+button {
+	background-color: aquamarine;
 }
 </style>
