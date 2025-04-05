@@ -1,46 +1,44 @@
 <template>
-	<div class="flex flex-col gap-4 justify-center">
-		<div class="flex flex-col md:flex-row gap-6 mx-auto">
-			<div
-				class="grid grid-flow-col items-center border border-1 bg-green-50 px-8 py-4 rounded-xl"
-			>
-				<div class="grid gap-2 col-span-10">
-					<p
-						class="justify-self-start capitalize text-sm text-green-500 font-light"
-					>
-						Income
-					</p>
-					<div class="text-base lg:text-xl font-semibold text-green-500">
-						$ {{ income }}
+	<div class="flex flex-col gap-6 justify-center">
+		<div class="flex flex-col md:flex-row gap-6 w-full">
+			<div class="flex-1 bg-gray-800/30 backdrop-blur-sm border border-green-500/20 rounded-xl p-4 hover:bg-gray-800/40 transition-all duration-300">
+				<div class="flex items-center justify-between">
+					<div class="space-y-2">
+						<p class="text-green-400 text-sm font-medium uppercase tracking-wide">Income</p>
+						<div class="text-2xl font-bold text-green-400">
+							$ {{ income }}
+						</div>
+					</div>
+					<div class="bg-green-400/10 p-3 rounded-lg">
+						<font-awesome-icon
+							class="text-green-400 text-xl"
+							icon="arrow-up"
+						/>
 					</div>
 				</div>
-				<font-awesome-icon
-					class="text-green-500 opacity-50 text-4xl ps-4"
-					icon="arrow-up"
-				/>
 			</div>
 
-			<div
-				class="grid grid-flow-col items-center border-1 border bg-red-50 px-8 py-4 rounded-xl"
-			>
-				<div class="grid gap-2 col-span-10">
-					<p
-						class="justify-self-start capitalize text-sm text-red-500 font-light"
-					>
-						Expense
-					</p>
-					<div class="text-base lg:text-xl font-semibold text-red-500">
-						$ {{ expenses }}
+			<div class="flex-1 bg-gray-800/30 backdrop-blur-sm border border-red-500/20 rounded-xl p-4 hover:bg-gray-800/40 transition-all duration-300">
+				<div class="flex items-center justify-between">
+					<div class="space-y-2">
+						<p class="text-red-400 text-sm font-medium uppercase tracking-wide">Expense</p>
+						<div class="text-2xl font-bold text-red-400">
+							$ {{ Math.abs(expenses) }}
+						</div>
+					</div>
+					<div class="bg-red-400/10 p-3 rounded-lg">
+						<font-awesome-icon
+							class="text-red-400 text-xl"
+							icon="arrow-down"
+						/>
 					</div>
 				</div>
-				<font-awesome-icon
-					class="text-red-500 opacity-50 text-4xl ps-4"
-					icon="arrow-down"
-				/>
 			</div>
 		</div>
 
-		<IncomeExpenseChart />
+		<div class="bg-gray-800/30 backdrop-blur-sm border border-gray-700/30 rounded-xl p-4">
+			<IncomeExpenseChart />
+		</div>
 	</div>
 </template>
 
@@ -58,3 +56,9 @@ const props = defineProps({
 	},
 });
 </script>
+
+<style scoped>
+.backdrop-blur-sm {
+	backdrop-filter: blur(8px);
+}
+</style>

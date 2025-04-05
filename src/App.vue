@@ -1,24 +1,31 @@
 <template>
-	<div class="flex flex-col min-h-screen max-w-[1440px] mx-auto">
-    <Header />
-    <div class="grid gap-6 p-4 lg:px-16">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="flex flex-col gap-4 bg-blue-50 rounded-xl py-4 px-8">
-                <Balance :total="+total" />
-                <IncomeExpenses :income="+income" :expenses="+expenses" />
-            </div>
-            <TransactionList
-                :transactions="transactions"
-                @transactionDeleted="handleTransactionDeleted"
-            />
-       
-            <AddTransaction @transactionSubmit="handleTransactionSubmit" />
-            <RecentTransactionList :transactions="transactions" />
-        </div>
-    </div>
-    <Footer class="mt-auto" />
-</div>
-
+	<div class="flex flex-col min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+		<div class="max-w-[1440px] mx-auto w-full">
+			<Header />
+			<div class="grid gap-6 p-4 lg:px-16">
+				<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+					<div class="flex flex-col gap-4 bg-gray-800/50 backdrop-blur-lg rounded-2xl py-6 px-8 border border-gray-700/30 shadow-xl hover:shadow-2xl transition-all duration-300">
+						<Balance :total="+total" />
+						<IncomeExpenses :income="+income" :expenses="+expenses" />
+					</div>
+					<TransactionList
+						:transactions="transactions"
+						@transactionDeleted="handleTransactionDeleted"
+						class="bg-gray-800/50 backdrop-blur-lg rounded-2xl border border-gray-700/30 shadow-xl"
+					/>
+					<AddTransaction 
+						@transactionSubmit="handleTransactionSubmit"
+						class="bg-gray-800/50 backdrop-blur-lg rounded-2xl border border-gray-700/30 shadow-xl"
+					/>
+					<RecentTransactionList 
+						:transactions="transactions"
+						class="bg-gray-800/50 backdrop-blur-lg rounded-2xl border border-gray-700/30 shadow-xl"
+					/>
+				</div>
+			</div>
+			<Footer class="mt-auto" />
+		</div>
+	</div>
 </template>
 
 <script setup>
@@ -150,13 +157,51 @@ const saveTransactionsToLocalStorage = () => {
 provide('transactions', transformedData);
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-.background-image {
-	background-image: url("/background-2.jpg");
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	min-height: 100vh; /* Example: Full height of the viewport */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+:root {
+	--primary-color: #6366f1;
+	--success-color: #10b981;
+	--danger-color: #ef4444;
+	--card-bg: rgba(31, 41, 55, 0.5);
 }
 
+body {
+	font-family: 'Inter', sans-serif;
+	background-color: #111827;
+	color: #fff;
+}
+
+/* Add smooth transitions */
+.transition-all {
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 300ms;
+}
+
+/* Glass effect for cards */
+.glass-card {
+	background: var(--card-bg);
+	backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
 </style>
