@@ -1,9 +1,6 @@
 ## Live hosted: https://track-transactions.netlify.app/
 
-<img width="1155" alt="expense-tracker-02" src="https://github.com/user-attachments/assets/9e874cf6-1390-4346-98c5-1c4814487347">
-<img width="1155" alt="expense-tracker-01" src="https://github.com/user-attachments/assets/e9f1203f-959f-4a8f-8593-b4b8119f6933">
-<img width="1155" alt="expense-tracker-03" src="https://github.com/user-attachments/assets/a4d90420-3dc0-4517-b926-fe701d96d797">
-
+![screencapture-track-transactions-netlify-app-2025-04-05-08_43_04](https://github.com/user-attachments/assets/67f11c0a-66d3-44b1-8fb1-ef6e8cfbfa9e)
 
 ## Project Setup
 
