@@ -9,7 +9,9 @@ A modern, feature-rich expense tracking application built with Vue 3, Vite, and 
 
 🔗 **Live Demo**: [https://track-transactions.netlify.app/](https://track-transactions.netlify.app/)
 
-![Expense Tracker Application](https://github.com/user-attachments/assets/67f11c0a-66d3-44b1-8fb1-ef6e8cfbfa9e)
+<img width="1600" height="1511" alt="screen" src="https://github.com/user-attachments/assets/446bfbec-bb62-48a7-93b5-dbf645040d1f" />
+
+
 
 ## ✨ Features
 
