@@ -90,6 +90,9 @@
         <!-- Hero Balance Card -->
         <Balance :total="+total" :income="+income" :expenses="+expenses" />
 
+        <!-- Budget Tracker Card -->
+        <BudgetTracker />
+
         <!-- Quick Insights Bento Grid (md+) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Chart (spans 2 cols) -->
@@ -114,6 +117,9 @@
             </div>
           </div>
         </div>
+
+        <!-- Category Summary -->
+        <CategorySummary />
 
         <!-- Recent Transactions -->
         <section class="space-y-4">
@@ -177,55 +183,59 @@ import AddTransaction from "./components/AddTransaction.vue";
 import IncomeExpenseChart from "./components/IncomeExpenseChart.vue";
 import TransactionList from "./components/TransactionList.vue";
 import RecentTransactionList from "./components/RecentTransactionList.vue";
+import BudgetTracker from "./components/BudgetTracker.vue";
+import CategorySummary from "./components/CategorySummary.vue";
 import { ref, computed, onMounted, provide } from "vue";
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
 const currentView = ref('dashboard');
 
-const transactions = ref([
-  // ── Revenue (Income) ───────────────────────────────────────────────────────
-  { id: 100001, text: "TCS Enterprise SaaS License Q4",       amount:  1250000, timestamp: "2024-10-02T10:00:00.000Z" },
-  { id: 100002, text: "Infosys BPM Platform Fee",             amount:   820000, timestamp: "2024-10-07T09:30:00.000Z" },
-  { id: 100003, text: "Wipro Digital — Annual License",       amount:   980000, timestamp: "2024-10-14T11:00:00.000Z" },
-  { id: 100004, text: "AWS Partner Revenue Share Q3",         amount:   340000, timestamp: "2024-10-19T14:00:00.000Z" },
-  { id: 100005, text: "HCL Technologies SaaS Renewal",        amount:   760000, timestamp: "2024-10-25T10:00:00.000Z" },
-  { id: 100006, text: "Cognizant Enterprise Support",         amount:  1120000, timestamp: "2024-11-01T09:00:00.000Z" },
-  { id: 100007, text: "API Gateway Revenue Q4",               amount:   280000, timestamp: "2024-11-08T16:00:00.000Z" },
-  { id: 100008, text: "Tech Mahindra Implementation Fee",     amount:   640000, timestamp: "2024-11-14T11:30:00.000Z" },
-  { id: 100009, text: "Zoho Corp Custom Dev Contract",        amount:  1050000, timestamp: "2024-11-21T10:00:00.000Z" },
-  { id: 100010, text: "Enterprise Training Programme",        amount:   180000, timestamp: "2024-11-27T14:00:00.000Z" },
-  { id: 100011, text: "Freshworks Platform Expansion",        amount:   720000, timestamp: "2024-12-03T10:00:00.000Z" },
-  { id: 100012, text: "Razorpay Marketplace Revenue",         amount:   310000, timestamp: "2024-12-09T15:00:00.000Z" },
-  { id: 100013, text: "Swiggy Tech — Enterprise License",     amount:   840000, timestamp: "2024-12-15T09:30:00.000Z" },
-  { id: 100014, text: "Meesho SaaS Annual Renewal",           amount:   580000, timestamp: "2024-12-22T11:00:00.000Z" },
-  { id: 100015, text: "PhonePe Deep Integration Fee",         amount:   920000, timestamp: "2024-12-28T10:00:00.000Z" },
-  { id: 100016, text: "BYJU'S Enterprise License Q1",         amount:  1180000, timestamp: "2025-01-05T09:00:00.000Z" },
-  { id: 100017, text: "Google Cloud Incentive Program",       amount:   420000, timestamp: "2025-01-10T14:00:00.000Z" },
-  { id: 100018, text: "Microsoft Azure Partnership",          amount:   550000, timestamp: "2025-01-16T10:30:00.000Z" },
-  { id: 100019, text: "Oracle India License Share",           amount:   480000, timestamp: "2025-01-22T11:00:00.000Z" },
+const CATEGORIES = {
+  income: [
+    { key: 'salary', label: '工资', icon: 'payments' },
+    { key: 'investment', label: '投资收益', icon: 'trending_up' },
+    { key: 'freelance', label: '兼职收入', icon: 'work' },
+    { key: 'other_income', label: '其他收入', icon: 'credit_card' },
+  ],
+  expense: [
+    { key: 'food', label: '餐饮', icon: 'restaurant' },
+    { key: 'transport', label: '交通', icon: 'commute' },
+    { key: 'shopping', label: '购物', icon: 'shopping_bag' },
+    { key: 'entertainment', label: '娱乐', icon: 'movie' },
+    { key: 'housing', label: '住房', icon: 'home_work' },
+    { key: 'utilities', label: '水电网费', icon: 'receipt' },
+    { key: 'healthcare', label: '医疗', icon: 'health_and_safety' },
+    { key: 'education', label: '教育', icon: 'school' },
+    { key: 'other_expense', label: '其他支出', icon: 'paid' },
+  ],
+};
 
-  // ── Operational Expenses ───────────────────────────────────────────────────
-  { id: 200001, text: "AWS Cloud Infrastructure — Oct",      amount: -520000,  timestamp: "2024-10-03T08:00:00.000Z" },
-  { id: 200002, text: "Engineering Payroll — Oct",           amount: -1650000, timestamp: "2024-10-07T08:30:00.000Z" },
-  { id: 200003, text: "Google Cloud Platform — Oct",         amount: -240000,  timestamp: "2024-10-13T09:00:00.000Z" },
-  { id: 200004, text: "Office Rent — Bengaluru HQ",          amount: -420000,  timestamp: "2024-10-20T10:00:00.000Z" },
-  { id: 200005, text: "Product & Design Payroll — Nov",      amount: -1250000, timestamp: "2024-11-04T08:30:00.000Z" },
-  { id: 200006, text: "Performance Marketing — Q4",          amount: -580000,  timestamp: "2024-11-10T12:00:00.000Z" },
-  { id: 200007, text: "Datadog + Grafana Observability",     amount: -180000,  timestamp: "2024-11-16T09:00:00.000Z" },
-  { id: 200008, text: "CrowdStrike Zero Trust Security",     amount: -260000,  timestamp: "2024-11-22T10:00:00.000Z" },
-  { id: 200009, text: "GitHub + GitLab Enterprise",          amount: -110000,  timestamp: "2024-11-28T11:00:00.000Z" },
-  { id: 200010, text: "Engineering Payroll — Dec",           amount: -1650000, timestamp: "2024-12-04T08:30:00.000Z" },
-  { id: 200011, text: "Legal & Compliance Audit Q4",         amount: -220000,  timestamp: "2024-12-10T14:00:00.000Z" },
-  { id: 200012, text: "AWS Cloud Infrastructure — Dec",      amount: -580000,  timestamp: "2024-12-16T09:00:00.000Z" },
-  { id: 200013, text: "Recruitment & ATS Platform",          amount: -320000,  timestamp: "2024-12-23T10:00:00.000Z" },
-  { id: 200014, text: "Slack + Zoom Enterprise Grid",        amount: -150000,  timestamp: "2024-12-30T09:00:00.000Z" },
-  { id: 200015, text: "Jira + Confluence + Notion",          amount: -82000,   timestamp: "2025-01-06T10:00:00.000Z" },
-  { id: 200016, text: "Engineering Payroll — Jan",           amount: -1650000, timestamp: "2025-01-09T08:30:00.000Z" },
-  { id: 200017, text: "Client Summit & Travel — Mumbai",     amount: -210000,  timestamp: "2025-01-17T09:00:00.000Z" },
-  { id: 200018, text: "Server Hardware Refresh",             amount: -360000,  timestamp: "2025-01-23T10:00:00.000Z" },
-  { id: 200019, text: "Figma + Linear + Design Tools",       amount: -48000,   timestamp: "2025-01-25T11:00:00.000Z" },
-  { id: 200020, text: "Azure DevOps + CI/CD Suite",          amount: -120000,  timestamp: "2025-01-28T09:30:00.000Z" },
+const transactions = ref([
+  { id: 100001, text: "TCS Enterprise SaaS License Q4",       amount:  1250000, timestamp: "2024-10-02T10:00:00.000Z", category: 'salary' },
+  { id: 100002, text: "Infosys BPM Platform Fee",             amount:   820000, timestamp: "2024-10-07T09:30:00.000Z", category: 'salary' },
+  { id: 100003, text: "Wipro Digital — Annual License",       amount:   980000, timestamp: "2024-10-14T11:00:00.000Z", category: 'salary' },
+  { id: 100004, text: "AWS Partner Revenue Share Q3",         amount:   340000, timestamp: "2024-10-19T14:00:00.000Z", category: 'investment' },
+  { id: 100005, text: "HCL Technologies SaaS Renewal",        amount:   760000, timestamp: "2024-10-25T10:00:00.000Z", category: 'salary' },
+  { id: 100006, text: "Cognizant Enterprise Support",         amount:  1120000, timestamp: "2024-11-01T09:00:00.000Z", category: 'salary' },
+  { id: 100007, text: "API Gateway Revenue Q4",               amount:   280000, timestamp: "2024-11-08T16:00:00.000Z", category: 'freelance' },
+  { id: 100008, text: "Tech Mahindra Implementation Fee",     amount:   640000, timestamp: "2024-11-14T11:30:00.000Z", category: 'salary' },
+  { id: 100009, text: "Zoho Corp Custom Dev Contract",        amount:  1050000, timestamp: "2024-11-21T10:00:00.000Z", category: 'freelance' },
+  { id: 100010, text: "Enterprise Training Programme",        amount:   180000, timestamp: "2024-11-27T14:00:00.000Z", category: 'other_income' },
+  { id: 200001, text: "AWS Cloud Infrastructure — Oct",      amount: -520000,  timestamp: "2024-10-03T08:00:00.000Z", category: 'utilities' },
+  { id: 200002, text: "Engineering Payroll — Oct",           amount: -1650000, timestamp: "2024-10-07T08:30:00.000Z", category: 'other_expense' },
+  { id: 200003, text: "Google Cloud Platform — Oct",         amount: -240000,  timestamp: "2024-10-13T09:00:00.000Z", category: 'utilities' },
+  { id: 200004, text: "Office Rent — Bengaluru HQ",          amount: -420000,  timestamp: "2024-10-20T10:00:00.000Z", category: 'housing' },
+  { id: 200005, text: "Product & Design Payroll — Nov",      amount: -1250000, timestamp: "2024-11-04T08:30:00.000Z", category: 'other_expense' },
+  { id: 200006, text: "Performance Marketing — Q4",          amount: -580000,  timestamp: "2024-11-10T12:00:00.000Z", category: 'other_expense' },
+  { id: 200007, text: "Datadog + Grafana Observability",     amount: -180000,  timestamp: "2024-11-16T09:00:00.000Z", category: 'utilities' },
+  { id: 200008, text: "CrowdStrike Zero Trust Security",     amount: -260000,  timestamp: "2024-11-22T10:00:00.000Z", category: 'utilities' },
+  { id: 200009, text: "GitHub + GitLab Enterprise",          amount: -110000,  timestamp: "2024-11-28T11:00:00.000Z", category: 'utilities' },
+  { id: 200010, text: "Engineering Payroll — Dec",           amount: -1650000, timestamp: "2024-12-04T08:30:00.000Z", category: 'other_expense' },
+  { id: 200011, text: "Legal & Compliance Audit Q4",         amount: -220000,  timestamp: "2024-12-10T14:00:00.000Z", category: 'other_expense' },
+  { id: 200012, text: "AWS Cloud Infrastructure — Dec",      amount: -580000,  timestamp: "2024-12-16T09:00:00.000Z", category: 'utilities' },
+  { id: 200013, text: "Recruitment & ATS Platform",          amount: -320000,  timestamp: "2024-12-23T10:00:00.000Z", category: 'other_expense' },
+  { id: 200014, text: "Slack + Zoom Enterprise Grid",        amount: -150000,  timestamp: "2024-12-30T09:00:00.000Z", category: 'utilities' },
 ]);
 
 const total = computed(() =>
@@ -247,6 +257,81 @@ const savingsPercent = computed(() => {
   return Math.max(0, Math.min(100, Math.round((tot / inc) * 100)));
 });
 
+const monthlyBudget = ref(0);
+
+const currentMonthTransactions = computed(() => {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+  return transactions.value.filter(t => {
+    const date = new Date(t.timestamp);
+    return date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+  });
+});
+
+const currentMonthExpenses = computed(() => {
+  return currentMonthTransactions.value
+    .filter(t => t.amount < 0)
+    .reduce((acc, t) => acc + Math.abs(t.amount), 0);
+});
+
+const currentMonthIncome = computed(() => {
+  return currentMonthTransactions.value
+    .filter(t => t.amount > 0)
+    .reduce((acc, t) => acc + t.amount, 0);
+});
+
+const budgetStatus = computed(() => {
+  const budget = monthlyBudget.value;
+  const spent = currentMonthExpenses.value;
+  if (budget <= 0) return { status: 'none', percent: 0, remaining: 0 };
+  const percent = (spent / budget) * 100;
+  const remaining = budget - spent;
+  if (percent >= 100) return { status: 'critical', percent, remaining };
+  if (percent >= 80) return { status: 'warning', percent, remaining };
+  return { status: 'normal', percent, remaining };
+});
+
+const categorySummary = computed(() => {
+  const summary = {};
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+
+  transactions.value.forEach(t => {
+    const date = new Date(t.timestamp);
+    const isCurrentMonth = date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+    const category = t.category || (t.amount > 0 ? 'other_income' : 'other_expense');
+    const isExpense = t.amount < 0;
+
+    if (!summary[category]) {
+      const allCategories = [...CATEGORIES.income, ...CATEGORIES.expense];
+      const catInfo = allCategories.find(c => c.key === category);
+      summary[category] = {
+        key: category,
+        label: catInfo?.label || category,
+        icon: catInfo?.icon || 'paid',
+        isExpense,
+        currentMonthAmount: 0,
+        totalAmount: 0,
+        count: 0,
+      };
+    }
+
+    const absAmount = Math.abs(t.amount);
+    summary[category].totalAmount += absAmount;
+    summary[category].count += 1;
+    if (isCurrentMonth) {
+      summary[category].currentMonthAmount += absAmount;
+    }
+  });
+
+  return Object.values(summary).sort((a, b) => {
+    if (a.isExpense !== b.isExpense) return a.isExpense ? -1 : 1;
+    return b.currentMonthAmount - a.currentMonthAmount;
+  });
+});
+
 const transformedData = computed(() =>
   transactions.value.map(({ amount, timestamp }) => {
     const day = new Date(timestamp).toISOString().split('T')[0];
@@ -261,23 +346,40 @@ onMounted(() => {
   if (savedVersion !== DEMO_VERSION) {
     localStorage.removeItem("transactions");
     localStorage.setItem("transactions_version", DEMO_VERSION);
-    return;
+  } else {
+    const saved = JSON.parse(localStorage.getItem("transactions"));
+    if (saved) transactions.value = saved;
   }
-  const saved = JSON.parse(localStorage.getItem("transactions"));
-  if (saved) transactions.value = saved;
+  const savedBudget = localStorage.getItem("monthlyBudget");
+  if (savedBudget) monthlyBudget.value = parseFloat(savedBudget);
 });
 
-function handleTransactionSubmit({ text, amount, type_of_transaction }) {
+function setBudget(amount) {
+  monthlyBudget.value = amount;
+  localStorage.setItem("monthlyBudget", amount.toString());
+  toast.success("预算已更新");
+}
+
+function handleTransactionSubmit({ text, amount, type_of_transaction, category }) {
   if (type_of_transaction === 'Expense') amount = amount * -1;
-  transactions.value.push({
+  const newTransaction = {
     id: Math.floor(Math.random() * 1000000),
     text,
     amount,
     type_of_transaction,
+    category: category || (amount > 0 ? 'other_income' : 'other_expense'),
     timestamp: new Date().toISOString(),
-  });
+  };
+  transactions.value.push(newTransaction);
   saveTransactionsToLocalStorage();
-  toast.success(`${text} added`);
+  
+  if (amount < 0 && budgetStatus.value.status === 'critical') {
+    toast.error("警告：本月预算已超支！", { timeout: 5000 });
+  } else if (amount < 0 && budgetStatus.value.status === 'warning') {
+    toast.warning("提醒：本月支出已超过预算的80%", { timeout: 3000 });
+  } else {
+    toast.success(`${text} added`);
+  }
 }
 
 function handleTransactionSubmitAndNavigate(data) {
@@ -296,6 +398,13 @@ const saveTransactionsToLocalStorage = () => {
   localStorage.setItem("transactions_version", DEMO_VERSION);
 };
 
+provide('CATEGORIES', CATEGORIES);
+provide('monthlyBudget', monthlyBudget);
+provide('setBudget', setBudget);
+provide('budgetStatus', budgetStatus);
+provide('currentMonthExpenses', currentMonthExpenses);
+provide('currentMonthIncome', currentMonthIncome);
+provide('categorySummary', categorySummary);
 provide('transactions', transformedData);
 </script>
 
