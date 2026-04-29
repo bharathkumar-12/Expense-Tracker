@@ -348,7 +348,27 @@ onMounted(() => {
     localStorage.setItem("transactions_version", DEMO_VERSION);
   } else {
     const saved = JSON.parse(localStorage.getItem("transactions"));
-    if (saved) transactions.value = saved;
+    if (saved) {
+      // 处理旧数据：为没有 category 字段的交易添加默认分类
+      let hasMissingCategory = false;
+      const processedTransactions = saved.map(t => {
+        if (!t.category) {
+          hasMissingCategory = true;
+          return {
+            ...t,
+            category: t.amount > 0 ? 'other_income' : 'other_expense'
+          };
+        }
+        return t;
+      });
+      
+      transactions.value = processedTransactions;
+      
+      // 如果有数据被修改，保存到 localStorage
+      if (hasMissingCategory) {
+        saveTransactionsToLocalStorage();
+      }
+    }
   }
   const savedBudget = localStorage.getItem("monthlyBudget");
   if (savedBudget) monthlyBudget.value = parseFloat(savedBudget);
