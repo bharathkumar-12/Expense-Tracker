@@ -408,9 +408,18 @@ function handleTransactionSubmitAndNavigate(data) {
 }
 
 const handleTransactionDeleted = (id) => {
+  const deletedTransaction = transactions.value.find(t => t.id === id);
+  if (!deletedTransaction) {
+    toast.error("交易不存在");
+    return;
+  }
+
   transactions.value = transactions.value.filter(t => t.id !== id);
   saveTransactionsToLocalStorage();
-  toast.success("Transaction deleted");
+
+  const type = deletedTransaction.amount > 0 ? "收入" : "支出";
+  const amount = Math.abs(deletedTransaction.amount).toLocaleString('en-IN');
+  toast.success(`${type}交易已删除，统计已更新。金额：₹${amount}`);
 };
 
 const saveTransactionsToLocalStorage = () => {
