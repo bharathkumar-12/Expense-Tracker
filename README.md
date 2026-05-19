@@ -276,3 +276,9 @@ For questions, issues, or feedback:
 ---
 
 **Built with ❤️ using Vue 3 and Modern Web Technologies**
+
+---
+
+## Maintenance
+
+Last maintenance update: <!--LAST_UPDATED-->2026-05-19<!--/LAST_UPDATED-->
