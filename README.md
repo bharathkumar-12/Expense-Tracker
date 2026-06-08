@@ -16,6 +16,7 @@ A modern, feature-rich expense tracking application built with Vue 3, Vite, and 
 ## ✨ Features
 
 ### Core Functionality
+
 - **Transaction Management**: Add, view, and delete income/expense transactions
 - **Real-time Balance**: Automatic calculation of total balance, income, and expenses
 - **Transaction History**: Comprehensive list of all transactions with timestamps
@@ -24,6 +25,7 @@ A modern, feature-rich expense tracking application built with Vue 3, Vite, and 
 - **Form Validation**: Client-side validation with FormKit
 
 ### User Experience
+
 - **Modern UI/UX**: Dark theme with gradient backgrounds and glassmorphism effects
 - **Responsive Design**: Fully responsive layout for mobile, tablet, and desktop
 - **Toast Notifications**: Instant feedback for user actions
@@ -31,6 +33,7 @@ A modern, feature-rich expense tracking application built with Vue 3, Vite, and 
 - **Smooth Animations**: Hover effects and transitions for better interactivity
 
 ### Technical Highlights
+
 - **Vue 3 Composition API**: Modern Vue development patterns
 - **Vite Build Tool**: Lightning-fast HMR and optimized builds
 - **Component Architecture**: Modular, reusable components
@@ -47,11 +50,14 @@ A modern, feature-rich expense tracking application built with Vue 3, Vite, and 
 ### Installation
 
 ```bash
+
 # Clone the repository
+
 git clone https://github.com/yourusername/expense-tracker.git
 cd expense-tracker
 
 # Install dependencies
+
 npm install
 ```
 
@@ -66,10 +72,13 @@ npm run dev
 ### Production Build
 
 ```bash
+
 # Build for production
+
 npm run build
 
 # Preview production build
+
 npm run preview
 ```
 
@@ -78,51 +87,73 @@ npm run preview
 ```
 expense-tracker/
 ├── public/                    # Static assets
+
 ├── src/
 │   ├── assets/
 │   │   └── style.css         # Global styles and Tailwind directives
+
 │   ├── components/
 │   │   ├── AddTransaction.vue      # Transaction form component
+
 │   │   ├── Balance.vue             # Total balance display
+
 │   │   ├── Footer.vue              # Footer component
+
 │   │   ├── Header.vue              # Header component
+
 │   │   ├── IncomeExpenseChart.vue  # Chart visualization
+
 │   │   ├── IncomeExpenses.vue      # Income/expense summary
+
 │   │   ├── RecentTransactionList.vue  # Recent transactions
+
 │   │   └── TransactionList.vue     # Full transaction list
+
 │   ├── App.vue               # Root component
+
 │   └── main.js               # Application entry point
+
 ├── formkit.config.js         # FormKit configuration
+
 ├── formkit.theme.mjs         # FormKit theme customization
+
 ├── tailwind.config.js        # Tailwind CSS configuration
+
 └── vite.config.js            # Vite configuration
+
 ```
 
 ## 🛠️ Tech Stack
 
 ### Frontend Framework
+
 - **[Vue 3](https://vuejs.org)** - Progressive JavaScript framework with Composition API
 - **[Vite](https://vitejs.dev)** - Next generation frontend tooling with instant HMR
 
 ### Styling & UI
+
 - **[Tailwind CSS](https://tailwindcss.com)** - Utility-first CSS framework
 - **[Font Awesome](https://fontawesome.com)** - Icon library for consistent visual elements
 - **Custom Glassmorphism** - Modern UI design with backdrop blur effects
 
 ### Form Management
+
 - **[FormKit](https://formkit.com)** - Vue form library with validation
 - **Custom Validation Rules** - Client-side form validation
 
 ### User Feedback
+
 - **[Vue Toastification](https://vue-toastification.maronato.dev/)** - Beautiful toast notifications
 
 ### Build Tools
+
 - **[PostCSS](https://postcss.org)** - CSS transformation
 - **[Autoprefixer](https://github.com/postcss/autoprefixer)** - Automatic vendor prefixing
 
 ## 🎨 Component Overview
 
 ### AddTransaction
+
 Form component for adding new income or expense transactions with validation.
 
 **Features:**
@@ -133,12 +164,14 @@ Form component for adding new income or expense transactions with validation.
 - FormKit integration
 
 ### Balance
+
 Displays the total balance calculated from all transactions.
 
 **Props:**
 - `total` - Calculated total balance (income - expenses)
 
 ### TransactionList
+
 Complete list of all transactions with delete functionality.
 
 **Features:**
@@ -148,9 +181,11 @@ Complete list of all transactions with delete functionality.
 - Formatted amounts and dates
 
 ### RecentTransactionList
+
 Quick view of the most recent transactions for at-a-glance information.
 
 ### IncomeExpenses
+
 Summary component showing total income and total expenses side by side.
 
 **Props:**
@@ -164,17 +199,20 @@ The application uses browser's `localStorage` to persist transaction data across
 ## 🎯 Key Features Explained
 
 ### Transaction Management
+
 - Add transactions with name, amount, and type
 - Automatically generates unique IDs and timestamps
 - Delete transactions with confirmation
 - Persists to localStorage
 
 ### Real-time Calculations
+
 - Total Balance = Total Income - Total Expenses
 - Income and expenses are calculated in real-time
 - Updates immediately on transaction add/delete
 
 ### Form Validation
+
 - Required field validation
 - Number type validation for amounts
 - Transaction type selection required
@@ -216,12 +254,15 @@ The built application can be deployed to any static hosting service:
 ## 🔧 Configuration Files
 
 ### tailwind.config.js
+
 Custom Tailwind configuration with extended color palette and theme customization.
 
 ### formkit.config.js
+
 FormKit configuration for form behavior and validation rules.
 
 ### vite.config.js
+
 Vite configuration with path aliases and plugin setup.
 
 ## 📈 Performance
@@ -244,6 +285,7 @@ Contributions are welcome! To contribute:
 ## 🐛 Known Issues & Roadmap
 
 ### Future Enhancements
+
 - [ ] Add data export functionality (CSV, JSON)
 - [ ] Implement transaction categories
 - [ ] Add filtering and sorting options
