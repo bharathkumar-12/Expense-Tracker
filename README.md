@@ -47,7 +47,7 @@ A modern, feature-rich expense tracking application built with Vue 3, Vite, and 
 - Node.js 16.x or higher
 - npm, pnpm, or yarn
 
-### Installation
+### Setup
 
 ```bash
 
