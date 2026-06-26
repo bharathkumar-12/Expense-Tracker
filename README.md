@@ -272,7 +272,7 @@ Vite configuration with path aliases and plugin setup.
 - **Lazy Loading**: Components loaded on demand
 - **Efficient Updates**: Vue 3's reactivity system for minimal re-renders
 
-## 🤝 Contributing
+## 🤝 Contribute
 
 Contributions are welcome! To contribute:
 
