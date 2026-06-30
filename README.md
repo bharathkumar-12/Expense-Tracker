@@ -324,3 +324,5 @@ For questions, issues, or feedback:
 ## Maintenance
 
 Last maintenance update: <!--LAST_UPDATED-->2026-06-12<!--/LAST_UPDATED-->
+<!-- changelog:2026-06-30 -->
+<!-- Maintenance pass: 2026-06-30 -->
