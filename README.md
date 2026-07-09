@@ -11,8 +11,6 @@ A modern, feature-rich expense tracking application built with Vue 3, Vite, and 
 
 <img width="1600" height="1511" alt="screen" src="https://github.com/user-attachments/assets/446bfbec-bb62-48a7-93b5-dbf645040d1f" />
 
-
-
 ## ✨ Features
 
 ### Core Functionality
