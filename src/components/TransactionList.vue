@@ -151,7 +151,10 @@ function formatTime(timestamp) {
 }
 
 function deleteTransaction(id) {
-  emit("transactionDeleted", id);
+  const confirmed = confirm("确定要删除这条交易吗？删除后将无法恢复。");
+  if (confirmed) {
+    emit("transactionDeleted", id);
+  }
 }
 </script>
 
